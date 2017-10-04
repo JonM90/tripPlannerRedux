@@ -3,8 +3,10 @@ const path = require('path');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 
-var db = require('./models').db;
+const db = require('./models').db;
 const app = express();
+
+const routes = require('./routes/index.js')
 
 
 app.use(volleyball);
@@ -12,6 +14,8 @@ app.use(bodyParser.json);
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use('/', routes);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
