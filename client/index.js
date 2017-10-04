@@ -12,3 +12,21 @@ const map = new mapboxgl.Map({
 
 const marker = buildMarker("activities", [-74.009, 40.705]);
 marker.addTo(map);
+
+
+fetch('/api')
+.then(result => result.json())
+.then(data => {
+  console.log('data:', data);
+
+  ['hotels', 'restaurants', 'activities'].forEach(events => {
+    data[events].forEach(event => {
+      console.log('event:', event.name)
+      let option = document.createElement('option');
+      option.innerHTML = event.name;
+      document.getElementById(`${events}-choices`).appendChild(option);
+    })
+  })
+
+})
+.catch(console.error);
